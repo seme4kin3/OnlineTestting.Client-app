@@ -20,18 +20,33 @@ const CardQuiz = ({ quiz }) => {
         display: 'flex',
         flexDirection: 'column',
       }}>
-      <CardContent>
-        <Typography>Title {quiz.title}</Typography>
-        <Typography>Description {quiz.description}</Typography>
-      </CardContent>
-      <CardActions disableSpacing={true} sx={{ flexDirection: 'row-reverse' }}>
-        <Button LinkComponent={Link} to="/question" state={quiz} variant="contained" sx={styleObj}>
-          Начать
-        </Button>
-      </CardActions>
+      {quiz.totalScore ? (
+        <CardContent>
+          <Typography>Название: {quiz.title}</Typography>
+          <Typography>Описание: {quiz.description}</Typography>
+          <Typography>Количество баллов: {quiz.totalScore}</Typography>
+        </CardContent>
+      ) : (
+        <>
+          <CardContent>
+            <Typography>Название: {quiz.title}</Typography>
+            <Typography>Описание: {quiz.description}</Typography>
+            <Typography>Дата создания: {quiz.dateCreated}</Typography>
+          </CardContent>
+          <CardActions disableSpacing={true} sx={{ flexDirection: 'row-reverse' }}>
+            <Button
+              LinkComponent={Link}
+              to="/question"
+              state={quiz}
+              variant="contained"
+              sx={styleObj}>
+              Начать
+            </Button>
+          </CardActions>
+        </>
+      )}
     </Card>
   );
-  // LinkComponent={Link} to="/question"
 };
 
 export default CardQuiz;

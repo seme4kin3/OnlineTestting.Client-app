@@ -41,5 +41,21 @@ export const createAPIEndpoint = (endpoint) => {
           Authorization: `Bearer ${token.accessToken}`,
         },
       }),
+
+    postStatUser: async (quizId, score) => {
+      await axios.post(
+        url,
+        {
+          idUser: token.userId,
+          idQuiz: quizId,
+          totalScore: score.toString(),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token.accessToken}`,
+          },
+        },
+      );
+    },
   };
 };

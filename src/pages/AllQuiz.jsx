@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { createAPIEndpoint, ENDPOINTS } from '../api';
 
 const AllQuiz = () => {
-  //const [quiz, setQuiz] = useState(objQuiz);
   const [quiz, setQuiz] = useState([]);
 
   useEffect(() => {
@@ -21,7 +20,6 @@ const AllQuiz = () => {
           <CardQuiz quiz={q}></CardQuiz>
         </List>
       ))}
-      {/* {console.log(quiz)} */}
     </Grid>
   );
 };

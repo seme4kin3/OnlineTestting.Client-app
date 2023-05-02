@@ -32,6 +32,9 @@ const ProfileUser = () => {
   const handleCloseLogout = () => {
     handleClose();
     logout();
+
+    nav('/home');
+    window.location.reload();
   };
   return (
     <>
@@ -84,7 +87,7 @@ const ProfileUser = () => {
 
         <Divider />
 
-        <MenuItem onClick={handleCloseLogout}>
+        <MenuItem onClick={() => handleCloseLogout()}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

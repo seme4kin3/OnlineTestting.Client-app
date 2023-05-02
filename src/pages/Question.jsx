@@ -1,8 +1,7 @@
 import { Card, Button } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { createAPIEndpoint, ENDPOINTS } from '../api';
-import { Link } from 'react-router-dom';
 
 const styleObj = {
   backgroundColor: {
@@ -20,8 +19,10 @@ const emptyQuest = [
     answers: [],
   },
 ];
+
 const Question = () => {
   const location = useLocation();
+  const nav = useNavigate();
 
   const quiz = location.state;
 
@@ -34,16 +35,21 @@ const Question = () => {
     createAPIEndpoint(ENDPOINTS.quiz)
       .fetchById(quiz.id)
       .then((res) => setQuestion(res.data.questions));
-    //.then((res) => console.log(res.data.questions));
   }, [quiz.id]);
 
   const handleAnswerClick = (isCorrect) => {
     if (isCorrect) {
       setScore(score + 1);
     }
-
     const nextQuest = currentQuestion + 1;
     nextQuest < question.length ? setCurrentQuestion(nextQuest) : setShowScore(true);
+  };
+
+  const postStat = () => {
+    createAPIEndpoint(ENDPOINTS.result)
+      .postStatUser(quiz.id, score)
+      .then((res) => console.log(res.data));
+    nav('/allquiz');
   };
 
   return (
@@ -65,12 +71,7 @@ const Question = () => {
                   Правильных ответов {score} из {question.length}
                 </h3>
               </div>
-              <Button
-                LinkComponent={Link}
-                to="/allquiz"
-                state={quiz}
-                variant="contained"
-                sx={styleObj}>
+              <Button state={quiz} onClick={() => postStat()} variant="contained" sx={styleObj}>
                 Закончить
               </Button>
             </div>
@@ -108,7 +109,6 @@ const Question = () => {
           )}
         </Card>
       </div>
-      {console.log(question)}
     </div>
   );
 };

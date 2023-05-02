@@ -53,6 +53,7 @@ function Login() {
     e.preventDefault();
     console.log(email, password);
     await signIn(email, password);
+    window.location.reload();
   };
 
   return (
