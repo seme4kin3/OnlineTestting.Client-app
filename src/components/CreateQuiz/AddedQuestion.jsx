@@ -3,7 +3,7 @@ import InputData from '../InputData';
 import AddedAnswers from './AddedAnswer';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { useContext } from 'react';
-import { Context } from '../../context';
+import { Context } from '../../context/context';
 import ClearIcon from '@mui/icons-material/Clear';
 
 const quest = {

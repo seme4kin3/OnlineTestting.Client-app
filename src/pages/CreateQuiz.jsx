@@ -1,12 +1,11 @@
-import { useReducer } from 'react';
-
+import { useReducer, useState } from 'react';
 import InputData from '../components/InputData';
 import { Button } from '@mui/material';
-
-import reducer from '../reducer';
-import { Context } from '../context';
+import reducer from '../context/reducer';
+import { Context } from '../context/context';
 import AddedQuestion from '../components/CreateQuiz/AddedQuestion';
 import { ENDPOINTS, createAPIEndpoint } from '../api';
+import ModalWindow from '../components/ModalWindow';
 
 const quiz = {
   title: '',
@@ -29,6 +28,7 @@ const styleButton = {
 
 const CreateQuiz = () => {
   const [state, dispatch] = useReducer(reducer, quiz);
+  const [modalActive, setModalActive] = useState(false);
 
   const handleTextChange = (e) => {
     dispatch({
@@ -58,11 +58,11 @@ const CreateQuiz = () => {
       .post(state)
       .then(() => console.log('Добавление прошло успешно'))
       .catch((error) => console.log(error));
-
     dispatch({
       type: 'RESET_STATE',
       payload: { quiz: state },
     });
+    setModalActive(true);
   };
   return (
     <Context.Provider value={{ state, dispatch }}>
@@ -95,6 +95,7 @@ const CreateQuiz = () => {
 
         <AddedQuestion state={state} Change={handleTextQuestChange} addQuest={addQuestion} />
         <div></div>
+        <ModalWindow active={modalActive} setActive={setModalActive} />
       </div>
     </Context.Provider>
   );

@@ -10,7 +10,22 @@ const AllQuiz = () => {
   useEffect(() => {
     createAPIEndpoint(ENDPOINTS.quiz)
       .fetch()
-      .then((res) => setQuiz(res.data));
+      .then((res) =>
+        res.data.sort((a, b) => {
+          if (a['dateCreated'] > b['dateCreated']) {
+            return 1;
+          }
+          if (a['dateCreated'] < b['dateCreated']) {
+            return -1;
+          }
+          if (!b['dateCreated']) {
+            return -1;
+          }
+
+          return 0;
+        }),
+      )
+      .then((res) => setQuiz(res.reverse()));
   }, []);
 
   return (
@@ -20,6 +35,7 @@ const AllQuiz = () => {
           <CardQuiz quiz={q}></CardQuiz>
         </List>
       ))}
+      {console.log(quiz)}
     </Grid>
   );
 };

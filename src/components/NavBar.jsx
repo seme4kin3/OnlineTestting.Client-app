@@ -34,8 +34,8 @@ function NavBar() {
           </Typography>
         </Stack>
         {user ? (
-          <Box>
-            <span>{user.userEmail}</span>
+          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <Typography>{user.userEmail}</Typography>
             <ProfileUser />
           </Box>
         ) : (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import InputData from '../InputData';
-import { Context } from '../../context';
+import { Context } from '../../context/context';
 import CheckBox from '../CheckBox';
 
 import DeleteIcon from '@mui/icons-material/Delete';
